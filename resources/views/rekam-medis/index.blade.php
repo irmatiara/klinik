@@ -12,9 +12,7 @@
             @if(session('success'))
                 <div class="p-4 bg-emerald-50 border-l-4 border-emerald-500 text-emerald-700 text-sm rounded-xl flex items-center justify-between shadow-sm">
                     <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                        </svg>
+                        <span class="material-symbols-outlined text-emerald-500 text-xl">check_circle</span>
                         <span>{{ session('success') }}</span>
                     </div>
                 </div>
@@ -37,16 +35,14 @@
                             <option value="kasir" {{ request('status') == 'kasir' ? 'selected' : '' }}>Sudah Diperiksa (Menunggu Kasir)</option>
                         </select>
                         <div class="relative w-full sm:w-80">
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Nama Pasien / No. RM..." class="w-full pl-10 pr-4 py-2.5 text-sm border-gray-200 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Nama Pasien / No. RM..." class="w-full pr-4 py-2.5 text-sm border-gray-200 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary">
                         </div>
-                        <button type="submit" class="px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap shadow-sm shadow-hfc-primary/20">
-                            Cari
+                        <button type="submit" class="px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap shadow-sm shadow-hfc-primary/20 inline-flex items-center">
+                            <span>Cari</span>
                         </button>
                         @if(request('search') || request('status'))
                             <a href="{{ route('rekam-medis.index') }}" class="px-4 py-2.5 bg-white border border-rose-200 hover:border-rose-400 hover:bg-rose-50 text-rose-600 font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 shadow-sm">
-                                <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                                </svg>
+                                <span class="material-symbols-outlined text-base text-rose-500">restart_alt</span>
                                 <span>Reset</span>
                             </a>
                         @endif
@@ -59,8 +55,8 @@
                         <thead>
                             <tr class="bg-gray-50 text-gray-900 font-bold border-b border-gray-200">
                                 <th class="p-4">No. Antrian</th>
-                                <th class="p-4">Nama Pasien / No. RM</th>
-                                <th class="p-4">Hasil Periksa Awal (Suhu / TD / BB)</th>
+                                <th class="p-4">Nama Pasien</th>
+                                <th class="p-4">Hasil Periksa Awal</th>
                                 <th class="p-4">Diagnosa Dokter</th>
                                 <th class="p-4">Status</th>
                                 <th class="p-4 text-center">Aksi (Periksa Dokter)</th>
@@ -102,10 +98,7 @@
                                     </td>
                                     <td class="p-4 text-center">
                                         <a href="{{ route('rekam-medis.create', $k->id) }}" class="inline-flex items-center gap-1.5 px-4 py-2 bg-hfc-primary hover:bg-hfc-hover text-white text-xs font-bold rounded-xl transition shadow-sm">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                                            </svg>
-                                            Input / Periksa Rekam Medis
+                                            Input Rekam Medis
                                         </a>
                                     </td>
                                 </tr>

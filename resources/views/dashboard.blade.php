@@ -25,12 +25,12 @@
                         <a href="{{ route('kunjungan.create') }}"
                             class="px-5 py-3 font-black text-sm rounded-xl transition shadow-lg flex items-center gap-2 hover:opacity-90"
                             style="background-color: #ffffff; color: #b224ae;">
-                            Ambil Antrian Baru
+                            <span>Ambil Antrian Baru</span>
                         </a>
                         <a href="{{ route('pasien.create') }}"
                             class="px-4 py-3 font-bold text-sm rounded-xl transition shadow-md flex items-center gap-2 hover:bg-black/40"
                             style="background-color: rgba(0,0,0,0.25); color: #ffffff; border: 1px solid rgba(255,255,255,0.4);">
-                            Pasien Baru
+                            <span>Pasien Baru</span>
                         </a>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                             <h4 class="text-2xl font-extrabold text-gray-900 mt-1">{{ number_format($totalPasien) }}</h4>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
+                    <div class="border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
                         <span>Master data pasien</span>
                         <a href="{{ route('pasien.index') }}" class="font-bold text-hfc-primary hover:underline">Lihat Semua →</a>
                     </div>
@@ -60,7 +60,7 @@
                             <h4 class="text-2xl font-extrabold text-gray-900 mt-1">{{ number_format($antrianHariIni) }}</h4>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
+                    <div class="border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
                         <span>Total pendaftaran</span>
                         <a href="{{ route('kunjungan.index') }}" class="font-bold text-blue-600 hover:underline">Lihat Antrian →</a>
                     </div>
@@ -74,7 +74,7 @@
                             <h4 class="text-2xl font-extrabold text-emerald-600 mt-1">{{ number_format($pasienSelesaiHariIni) }}</h4>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
+                    <div class="border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
                         <span>Tuntas obat diserahkan</span>
                         <span class="font-bold text-emerald-600">Hari Ini</span>
                     </div>
@@ -88,7 +88,7 @@
                             <h4 class="text-xl font-extrabold text-gray-900 mt-1">Rp {{ number_format($pendapatanHariIni, 0, ',', '.') }}</h4>
                         </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
+                    <div class="border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
                         <span>Total pembayaran lunas</span>
                         <a href="{{ route('tagihan.index') }}" class="font-bold text-amber-600 hover:underline">Detail Kasir →</a>
                     </div>

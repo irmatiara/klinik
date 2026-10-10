@@ -42,24 +42,61 @@
                         <x-text-input id="tanggal_kunjungan" class="block mt-1 w-full" type="datetime-local" name="tanggal_kunjungan" :value="old('tanggal_kunjungan', \Carbon\Carbon::parse($kunjungan->tanggal_kunjungan)->format('Y-m-d\TH:i'))" required />
                     </div>
 
+                    @php
+                        $statusBadge = [
+                            'antri_triage' => 'bg-amber-100 text-amber-800 border-amber-200',
+                            'antri_dokter' => 'bg-blue-100 text-blue-800 border-blue-200',
+                            'periksa' => 'bg-indigo-100 text-indigo-800 border-indigo-200',
+                            'kasir' => 'bg-purple-100 text-purple-800 border-purple-200',
+                            'apotek' => 'bg-teal-100 text-teal-800 border-teal-200',
+                            'selesai' => 'bg-emerald-100 text-emerald-800 border-emerald-200',
+                            'batal' => 'bg-rose-100 text-rose-800 border-rose-200',
+                        ];
+
+                        $statusLabel = [
+                            'antri_triage' => 'Pemeriksaan Awal (Perawat)',
+                            'antri_dokter' => 'Menunggu Dokter',
+                            'periksa' => 'Pemeriksaan Dokter',
+                            'kasir' => 'Kasir / Pembayaran',
+                            'apotek' => 'Apotek / Obat',
+                            'selesai' => 'Selesai',
+                            'batal' => 'Dibatalkan',
+                        ];
+                    @endphp
+
                     <div>
-                        <x-input-label for="status" :value="__('Status Alur Pelayanan')" />
-                        <select id="status" name="status" class="block mt-1 w-full border-gray-300 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl shadow-sm text-sm" required>
-                            <option value="antri_triage" {{ old('status', $kunjungan->status) == 'antri_triage' ? 'selected' : '' }}>CEK VITAL SIGN (Pemeriksaan Awal Perawat)</option>
-                            <option value="antri_dokter" {{ old('status', $kunjungan->status) == 'antri_dokter' ? 'selected' : '' }}>ANTRI DOKTER (Menunggu Dipanggil Dokter)</option>
-                            <option value="periksa" {{ old('status', $kunjungan->status) == 'periksa' ? 'selected' : '' }}>PERIKSA (Sedang Diperiksa Dokter)</option>
-                            <option value="kasir" {{ old('status', $kunjungan->status) == 'kasir' ? 'selected' : '' }}>KASIR (Menunggu Pembayaran)</option>
-                            <option value="apotek" {{ old('status', $kunjungan->status) == 'apotek' ? 'selected' : '' }}>   APOTEK (Menunggu Penyerahan Obat)</option>
-                            <option value="selesai" {{ old('status', $kunjungan->status) == 'selesai' ? 'selected' : '' }}>SELESAI (Pelayanan Selesai)</option>
-                            <option value="batal" {{ old('status', $kunjungan->status) == 'batal' ? 'selected' : '' }}>DIBATALKAN</option>
-                        </select>
+                        <x-input-label :value="__('Status Alur Pelayanan (Otomatis Sistem)')" />
+                        <div class="mt-1.5 p-3.5 bg-gray-50 border border-gray-200/80 rounded-xl flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs text-gray-500 font-medium">Status Berjalan:</span>
+                                <span class="px-3 py-1 rounded-full text-xs font-bold border {{ $statusBadge[$kunjungan->status] ?? 'bg-gray-100 text-gray-800' }}">
+                                    {{ $statusLabel[$kunjungan->status] ?? strtoupper($kunjungan->status) }}
+                                </span>
+                            </div>
+                            <span class="text-xs text-gray-400 italic">Generate otomatis sesuai alur</span>
+                        </div>
+
+                        <!-- Opsi Mengubah Ke Dibatalkan -->
+                        <div class="mt-4">
+                            <x-input-label for="status" :value="__('Tindakan Status')" />
+                            <select id="status" name="status" class="block mt-1 w-full border-gray-300 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl shadow-sm text-sm font-medium text-gray-800" required>
+                                <option value="{{ $kunjungan->status }}" {{ old('status', $kunjungan->status) != 'batal' ? 'selected' : '' }}>
+                                    Pertahankan Status ({{ $statusLabel[$kunjungan->status] ?? $kunjungan->status }})
+                                </option>
+                                @if($kunjungan->status !== 'batal')
+                                    <option value="batal" {{ old('status', $kunjungan->status) == 'batal' ? 'selected' : '' }}>
+                                        ✕ Batalkan Antrian (DIBATALKAN)
+                                    </option>
+                                @endif
+                            </select>
+                        </div>
                     </div>
 
                     <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
-                        <a href="{{ route('kunjungan.index') }}" class="px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition">
+                        <a href="{{ route('kunjungan.index') }}" class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition inline-flex items-center justify-center shrink-0">
                             Batal
                         </a>
-                        <x-primary-button class="bg-hfc-primary hover:bg-hfc-hover rounded-xl px-6 py-2.5">
+                        <x-primary-button>
                             {{ __('Update Data Kunjungan') }}
                         </x-primary-button>
                     </div>

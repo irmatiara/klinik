@@ -21,8 +21,9 @@
                         <h3 class="text-lg font-bold text-hfc-dark">Daftar Pasien Terdaftar</h3>
                         <p class="text-sm text-gray-500">Kelola informasi data pasien klinik</p>
                     </div>
-                    <a href="{{ route('pasien.create') }}" class="inline-flex items-center justify-center px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white text-sm font-semibold rounded-xl transition shadow-md shadow-hfc-primary/20 whitespace-nowrap">
-                        + Tambah Pasien Baru
+                    <a href="{{ route('pasien.create') }}" class="inline-flex items-center justify-center px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white text-sm font-semibold rounded-xl transition shadow-md shadow-hfc-primary/20 whitespace-nowrap gap-1">
+                        <span class="material-symbols-outlined text-base">person_add</span>
+                        <span>Tambah Pasien Baru</span>
                     </a>
                 </div>
 
@@ -30,16 +31,14 @@
                 <div class="mb-6 flex justify-end">
                     <form method="GET" action="{{ route('pasien.index') }}" class="flex flex-row items-center justify-end gap-2 w-full sm:w-auto">
                         <div class="relative w-full sm:w-80">
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Nama / No. RM / Telp..." class="w-full pl-10 pr-4 py-2.5 text-sm border-gray-200 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Nama / No. RM / Telp..." class="w-full pr-4 py-2.5 text-sm border-gray-200 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary">
                         </div>
-                        <button type="submit" class="px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap shadow-sm shadow-hfc-primary/20">
-                            Cari
+                        <button type="submit" class="px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap shadow-sm shadow-hfc-primary/20 inline-flex items-center">
+                            <span>Cari</span>
                         </button>
                         @if(request('search'))
                             <a href="{{ route('pasien.index') }}" class="px-4 py-2.5 bg-white border border-rose-200 hover:border-rose-400 hover:bg-rose-50 text-rose-600 font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 shadow-sm">
-                                <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                                </svg>
+                                <span class="material-symbols-outlined text-base text-rose-500">restart_alt</span>
                                 <span>Reset</span>
                             </a>
                         @endif
@@ -53,7 +52,7 @@
                                 <th class="p-4">No. RM</th>
                                 <th class="p-4">Nama Pasien</th>
                                 <th class="p-4">Tgl Lahir</th>
-                                <th class="p-4">JK</th>
+                                <th class="p-4">Jenis Kelamin</th>
                                 <th class="p-4">No. Telepon</th>
                                 <th class="p-4">Alamat</th>
                                 <th class="p-4 text-center">Aksi</th>

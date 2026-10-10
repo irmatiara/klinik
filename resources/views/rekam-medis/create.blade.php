@@ -26,7 +26,9 @@
 
                 <!-- Card Parameter Vital Sign dari Perawat -->
                 <div class="bg-purple-50/60 p-4 rounded-xl border border-purple-100">
-                    <span class="text-xs font-bold text-purple-900 uppercase tracking-wider block mb-2">📊 Hasil Pemeriksaan Awal (Oleh Perawat)</span>
+                    <span class="text-xs font-bold text-purple-900 uppercase tracking-wider block mb-2 flex items-center gap-1">
+                        <span>Hasil Pemeriksaan Awal (Oleh Perawat)</span>
+                    </span>
                     <div class="grid grid-cols-3 gap-4 text-center">
                         <div class="bg-white p-3 rounded-xl border border-purple-100 shadow-sm">
                             <span class="text-xs text-gray-400 font-semibold block">Suhu Tubuh</span>
@@ -61,13 +63,13 @@
 
                     <!-- 1. Keluhan Utama -->
                     <div>
-                        <x-input-label for="keluhan" :value="__('1. Anamnesis / Keluhan Utama Pasien')" />
+                        <x-input-label for="keluhan" :value="__('Keluhan Utama Pasien')" />
                         <textarea id="keluhan" name="keluhan" rows="3" class="block mt-1 w-full border-gray-300 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl shadow-sm text-sm" required placeholder="Contoh: Demam sejak 2 hari yang lalu, pusing, dan batuk kering...">{{ old('keluhan', optional($kunjungan->rekamMedis)->keluhan) }}</textarea>
                     </div>
 
                     <!-- 2. Diagnosa Dokter -->
                     <div>
-                        <x-input-label for="diagnosa" :value="__('2. Diagnosa Dokter')" />
+                        <x-input-label for="diagnosa" :value="__('Diagnosa Dokter')" />
                         <textarea id="diagnosa" name="diagnosa" rows="3" class="block mt-1 w-full border-gray-300 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl shadow-sm text-sm" required placeholder="Contoh: ISPA (Infeksi Saluran Pernapasan Akut), Febris E.C Suspek Virus...">{{ old('diagnosa', optional($kunjungan->rekamMedis)->diagnosa) }}</textarea>
                     </div>
 
@@ -75,12 +77,14 @@
                     <div class="border-t border-gray-100 pt-5">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
                             <div>
-                                <h4 class="text-md font-bold text-hfc-dark">💊 3. Resep Obat Pasien</h4>
+                                <h4 class="text-md text-hfc-dark flex items-center gap-1">
+                                    <span>Resep Obat Pasien</span>
+                                </h4>
                                 <p class="text-xs text-gray-500">Pilih obat dari Master Obat dan atur jumlah serta aturan pakainya.</p>
                             </div>
                             <button type="button" id="btn-add-obat" class="px-4 py-2 bg-hfc-light hover:bg-purple-100 text-hfc-primary font-bold text-xs rounded-xl transition border border-hfc-primary/20 flex items-center gap-1.5 shadow-sm">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                                <span>+ Tambah Baris Obat</span>
+                                <span class="material-symbols-outlined text-base">add</span>
+                                <span>Tambah Baris Obat</span>
                             </button>
                         </div>
 
@@ -97,7 +101,7 @@
                                 <div class="row-obat flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200">
                                     <div class="flex-1 min-w-0">
                                         <select name="obat_id[]" class="w-full border-gray-300 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl text-sm py-2.5 px-3 font-medium text-gray-800">
-                                            <option value="">-- Klik Untuk Pilih Obat --</option>
+                                            <option value="">-- Pilih Obat --</option>
                                             @foreach($obats as $obat)
                                                 <option value="{{ $obat->id }}" {{ $resep->obat_id == $obat->id ? 'selected' : '' }}>
                                                     [{{ $obat->kode_obat }}] {{ $obat->nama_obat }} — Rp {{ number_format($obat->harga, 0, ',', '.') }} (Stok: {{ $obat->stok }})
@@ -112,7 +116,7 @@
                                         <input type="text" name="aturan_pakai[]" value="{{ $resep->aturan_pakai }}" placeholder="Aturan Pakai (misal 3x1)" class="w-full border-gray-300 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl text-sm py-2.5 px-3" />
                                     </div>
                                     <div class="w-10 shrink-0 text-center">
-                                        <button type="button" class="btn-remove-row p-2 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-xl text-sm font-bold transition" title="Hapus Baris">
+                                        <button type="button" class="btn-remove-row p-2 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-xl text-sm font-bold transition" title="Hapus Obat">
                                             ✕
                                         </button>
                                     </div>
@@ -121,7 +125,7 @@
                                 <div class="row-obat flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200">
                                     <div class="flex-1 min-w-0">
                                         <select name="obat_id[]" class="w-full border-gray-300 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl text-sm py-2.5 px-3 font-medium text-gray-800">
-                                            <option value="">-- Klik Untuk Pilih Obat --</option>
+                                            <option value="">-- Pilih Obat --</option>
                                             @foreach($obats as $obat)
                                                 <option value="{{ $obat->id }}">
                                                     [{{ $obat->kode_obat }}] {{ $obat->nama_obat }} — Rp {{ number_format($obat->harga, 0, ',', '.') }} (Stok: {{ $obat->stok }})
@@ -136,7 +140,7 @@
                                         <input type="text" name="aturan_pakai[]" value="3x1 Sehari Sesudah Makan" placeholder="Aturan Pakai (misal 3x1)" class="w-full border-gray-300 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl text-sm py-2.5 px-3" />
                                     </div>
                                     <div class="w-10 shrink-0 text-center">
-                                        <button type="button" class="btn-remove-row p-2 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-xl text-sm font-bold transition" title="Hapus Baris">
+                                        <button type="button" class="btn-remove-row p-2 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-xl text-sm font-bold transition" title="Hapus Obat">
                                             ✕
                                         </button>
                                     </div>
@@ -146,11 +150,11 @@
                     </div>
 
                     <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-100">
-                        <a href="{{ route('rekam-medis.index') }}" class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition">
+                        <a href="{{ route('rekam-medis.index') }}" class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition inline-flex items-center justify-center shrink-0">
                             Batal
                         </a>
-                        <x-primary-button class="bg-hfc-primary hover:bg-hfc-hover rounded-xl px-6 py-2.5 shadow-md shadow-hfc-primary/20">
-                            {{ __('Simpan Rekam Medis & Oper ke Kasir') }} &rarr;
+                        <x-primary-button>
+                            {{ __('Simpan Rekam Medis & Oper ke Kasir') }}
                         </x-primary-button>
                     </div>
                 </form>

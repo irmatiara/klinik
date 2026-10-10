@@ -12,15 +12,20 @@
             @if(session('success'))
             <div class="p-4 bg-emerald-50 border-l-4 border-emerald-500 text-emerald-700 text-sm rounded-xl flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
+                    <span class="material-symbols-outlined text-emerald-500 text-xl">check_circle</span>
                     <span>{{ session('success') }}</span>
                 </div>
             </div>
             @endif
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-2xl p-6 border border-gray-100">
+
+                <!-- Tombol Kembali -->
+                <div class="mb-4">
+                    <a href="{{ route('tagihan.index') }}" class="text-xs font-semibold text-gray-500 hover:text-hfc-primary transition inline-flex items-center gap-1">
+                        &larr; kembali
+                    </a>
+                </div>
 
                 <!-- Header Info Pasien -->
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-gray-100 pb-4 mb-6">
@@ -88,13 +93,13 @@
 
                 <!-- Form Konfirmasi Transaksi Pembayaran -->
                 @if($tagihan->status_bayar == 'belum_lunas')
-                <form method="POST" action="{{ route('tagihan.update', $tagihan->id) }}" class="space-y-5 bg-gray-50/80 p-5 rounded-2xl border border-gray-200">
+                <form method="POST" action="{{ route('tagihan.update', $tagihan->id) }}" class="bg-gray-50/80 p-5 rounded-2xl border border-gray-200">
                     @csrf
                     @method('PUT')
 
-                    <h4 class="text-md font-bold text-hfc-dark border-b border-gray-200 pb-2">💳 Form Transaksi Pembayaran</h4>
+                    <h4 class="text-md font-bold text-hfc-dark border-b border-gray-200 pb-2">Form Transaksi Pembayaran</h4>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-5">
                         <div>
                             <x-input-label for="metode_pembayaran" :value="__('Metode Pembayaran')" />
                             <select id="metode_pembayaran" name="metode_pembayaran" class="block mt-1 w-full border-gray-300 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl text-sm font-semibold" required>
@@ -111,29 +116,24 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between pt-3">
-                        <a href="{{ route('tagihan.index') }}" class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-semibold rounded-xl transition">
+                    <div class="flex items-center justify-end gap-3 pt-3 border-t border-gray-200/80">
+                        <a href="{{ route('tagihan.index') }}" class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-semibold rounded-xl transition inline-flex items-center justify-center shrink-0">
                             Batal
                         </a>
-                        <x-primary-button class="bg-hfc-primary hover:bg-hfc-hover rounded-xl px-6 py-2.5 shadow-md shadow-hfc-primary/20">
-                            {{ __('Konfirmasi Lunas & Oper ke Apotek') }} &rarr;
+                        <x-primary-button>
+                            {{ __('Konfirmasi Lunas & Oper ke Apotek') }}
                         </x-primary-button>
                     </div>
                 </form>
                 @else
                 <!-- Status LUNAS -->
-                <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-200">
                     <div>
                         <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white">
                             LUNAS
                         </span>
-                        <h4 class="text-lg font-bold text-emerald-900 mt-1">Pembayaran Telah Selesai (LUNAS)</h4>
+                        <h4 class="text-lg font-bold text-emerald-900 mt-1">Pembayaran Telah Selesai</h4>
                         <p class="text-xs text-emerald-700">Pasien telah melunasi seluruh biaya dan data telah dikirim ke bagian Apotek / Farmasi.</p>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <a href="{{ route('tagihan.index') }}" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition">
-                            &larr; Kembali ke Daftar Tagihan
-                        </a>
                     </div>
                 </div>
                 @endif

@@ -72,10 +72,10 @@
                     <input type="hidden" name="redirect_to_antrian" value="1">
 
                     <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
-                        <a href="{{ route('pasien.index') }}" class="px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition">
+                        <a href="{{ route('pasien.index') }}" class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition inline-flex items-center justify-center shrink-0">
                             Batal
                         </a>
-                        <x-primary-button class="bg-hfc-primary hover:bg-hfc-hover rounded-xl px-6 py-2.5">
+                        <x-primary-button>
                             {{ __('Simpan & Lanjut Buat Antrian') }}
                         </x-primary-button>
                     </div>

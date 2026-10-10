@@ -12,6 +12,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+        <!-- Google Material Symbols Icons -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -30,7 +33,7 @@
                         <div class="flex items-center gap-3">
                             <!-- Mobile Menu Toggle Button -->
                             <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-xl text-gray-500 hover:text-gray-700 hover:bg-gray-100 lg:hidden">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                                <span class="material-symbols-outlined text-2xl">menu</span>
                             </button>
 
                             @isset($header)
