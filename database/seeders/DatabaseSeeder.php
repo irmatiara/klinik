@@ -20,37 +20,37 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Administrator Klinik',
                 'email' => 'admin@klinik.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345678'),
                 'role' => 'admin',
             ],
             [
                 'name' => 'Dokter Budi (Umum)',
                 'email' => 'dokter@klinik.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345678'),
                 'role' => 'dokter',
             ],
             [
                 'name' => 'Apoteker Siti',
                 'email' => 'apoteker@klinik.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345678'),
                 'role' => 'apoteker',
             ],
             [
                 'name' => 'Kasir Rina',
                 'email' => 'kasir@klinik.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345678'),
                 'role' => 'kasir',
             ],
             [
                 'name' => 'Perawat Ani',
                 'email' => 'perawat@klinik.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345678'),
                 'role' => 'perawat',
             ],
             [
                 'name' => 'Resepsionis Joko',
                 'email' => 'resepsionis@klinik.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('12345678'),
                 'role' => 'resepsionis',
             ],
         ];
