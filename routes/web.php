@@ -15,6 +15,26 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/artisan-migrate', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $output = \Illuminate\Support\Facades\Artisan::output();
+        return '<h2>Migration Successful!</h2><pre>' . htmlspecialchars($output) . '</pre><br><a href="/">Kembali ke Aplikasi</a>';
+    } catch (\Throwable $e) {
+        return '<h2>Migration Error</h2><pre style="color:red;">' . htmlspecialchars((string)$e) . '</pre>';
+    }
+});
+
+Route::get('/artisan-seed', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+        $output = \Illuminate\Support\Facades\Artisan::output();
+        return '<h2>Seeding Successful!</h2><pre>' . htmlspecialchars($output) . '</pre><br><a href="/">Kembali ke Aplikasi</a>';
+    } catch (\Throwable $e) {
+        return '<h2>Seeding Error</h2><pre style="color:red;">' . htmlspecialchars((string)$e) . '</pre>';
+    }
+});
+
 Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
