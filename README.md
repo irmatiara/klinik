@@ -4,7 +4,7 @@ Aplikasi web manajemen pelayanan medis dan alur antrian klinik yang dibangun men
 
 ---
 
-## 🌐 Live URL & Akses Aplikasi
+## Live URL & Akses Aplikasi
 - **Website Live**: [https://klinik-seven-chi.vercel.app](https://klinik-seven-chi.vercel.app)
 - **Database**: Aiven MySQL (Cloud Managed DB)
 - **Deployment Platform**: Vercel Serverless
@@ -53,20 +53,6 @@ Seluruh akun demo menggunakan **Password**: `12345678`
 7. **Stasiun Farmasi & Apotek**
    - Penyiapan dan penyerahan obat resep ke pasien.
    - Pemotongan stok obat secara otomatis setelah obat diserahkan.
-
----
-
-## URL Pembantu Maintenance (Artisan Helper Routes)
-Untuk mempermudah manajemen database tanpa memerlukan akses SSH terminal di Vercel:
-
-- **Reset & Migration Fresh (Membuat Ulang Database Clean + Seed)**:
-  `https://klinik-seven-chi.vercel.app/artisan-migrate-fresh`
-
-- **Seeding Data Default & Reset Password (`12345678`)**:
-  `https://klinik-seven-chi.vercel.app/artisan-seed`
-
-- **Migration Standar**:
-  `https://klinik-seven-chi.vercel.app/artisan-migrate`
 
 ---
 

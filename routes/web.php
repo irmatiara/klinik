@@ -15,7 +15,24 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/artisan-migrate', function () {
+// Proteksi Keamanan Route Maintenance
+$checkMaintenanceAccess = function (\Illuminate\Http\Request $request) {
+    if (env('ALLOW_MAINTENANCE_ROUTES', true) === false) {
+        abort(403, 'Akses route maintenance telah dinonaktifkan.');
+    }
+
+    $secretKey = env('MAINTENANCE_KEY', 'klinik-admin-secret-2026');
+    $providedKey = $request->query('key');
+
+    if ($providedKey !== $secretKey) {
+        if (!auth()->check() || !auth()->user()->isAdmin()) {
+            abort(403, 'Akses Ditolak: Route maintenance dilindungi dan memerlukan autentikasi Admin serta Kunci Rahasia.');
+        }
+    }
+};
+
+Route::get('/artisan-migrate', function (\Illuminate\Http\Request $request) use ($checkMaintenanceAccess) {
+    $checkMaintenanceAccess($request);
     try {
         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
         $output = \Illuminate\Support\Facades\Artisan::output();
@@ -25,7 +42,8 @@ Route::get('/artisan-migrate', function () {
     }
 });
 
-Route::get('/artisan-migrate-fresh', function () {
+Route::get('/artisan-migrate-fresh', function (\Illuminate\Http\Request $request) use ($checkMaintenanceAccess) {
+    $checkMaintenanceAccess($request);
     try {
         \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
         $output = \Illuminate\Support\Facades\Artisan::output();
@@ -35,7 +53,8 @@ Route::get('/artisan-migrate-fresh', function () {
     }
 });
 
-Route::get('/artisan-seed', function () {
+Route::get('/artisan-seed', function (\Illuminate\Http\Request $request) use ($checkMaintenanceAccess) {
+    $checkMaintenanceAccess($request);
     try {
         \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
         $output = \Illuminate\Support\Facades\Artisan::output();
