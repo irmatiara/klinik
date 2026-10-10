@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KunjunganController;
 use App\Http\Controllers\PasienController;
+use App\Http\Controllers\PemeriksaanAwalController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/kunjungan/{kunjungan}/edit', [KunjunganController::class, 'edit'])->name('kunjungan.edit');
     Route::put('/kunjungan/{kunjungan}', [KunjunganController::class, 'update'])->name('kunjungan.update');
     Route::delete('/kunjungan/{kunjungan}', [KunjunganController::class, 'destroy'])->name('kunjungan.destroy');
+
+    // Route Pemeriksaan Awal (Suhu, TD, BB)
+    Route::get('/pemeriksaan-awal', [PemeriksaanAwalController::class, 'index'])->name('pemeriksaan-awal.index');
+    Route::get('/pemeriksaan-awal/{kunjungan}/create', [PemeriksaanAwalController::class, 'create'])->name('pemeriksaan-awal.create');
+    Route::post('/pemeriksaan-awal/{kunjungan}', [PemeriksaanAwalController::class, 'store'])->name('pemeriksaan-awal.store');
 
     Route::get('/rekam-medis', function () {
         return view('rekam-medis.index');

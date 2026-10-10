@@ -24,7 +24,7 @@
                         <form method="GET" action="{{ route('kunjungan.index') }}" class="flex flex-wrap items-center gap-2">
                             <select name="status" class="text-sm border-gray-300 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary py-2 px-3">
                                 <option value="">Semua Status</option>
-                                <option value="antri_triage" {{ request('status') == 'antri_triage' ? 'selected' : '' }}>ANTRI TRIAGE (Cek Vital)</option>
+                                <option value="antri_triage" {{ request('status') == 'antri_triage' ? 'selected' : '' }}>Cek Vital Sign (Perawat)</option>
                                 <option value="antri_dokter" {{ request('status') == 'antri_dokter' ? 'selected' : '' }}>ANTRI DOKTER</option>
                                 <option value="periksa" {{ request('status') == 'periksa' ? 'selected' : '' }}>PERIKSA</option>
                                 <option value="kasir" {{ request('status') == 'kasir' ? 'selected' : '' }}>KASIR</option>

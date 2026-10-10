@@ -45,12 +45,12 @@
                     <div>
                         <x-input-label for="status" :value="__('Status Alur Pelayanan')" />
                         <select id="status" name="status" class="block mt-1 w-full border-gray-300 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl shadow-sm text-sm" required>
-                            <option value="antri_triage" {{ old('status', $kunjungan->status) == 'antri_triage' ? 'selected' : '' }}>1. ANTRI TRIAGE (Menunggu Cek Vital Perawat)</option>
-                            <option value="antri_dokter" {{ old('status', $kunjungan->status) == 'antri_dokter' ? 'selected' : '' }}>2. ANTRI DOKTER (Menunggu Dipanggil Dokter)</option>
-                            <option value="periksa" {{ old('status', $kunjungan->status) == 'periksa' ? 'selected' : '' }}>3. PERIKSA (Sedang Diperiksa Dokter)</option>
-                            <option value="kasir" {{ old('status', $kunjungan->status) == 'kasir' ? 'selected' : '' }}>4. KASIR (Menunggu Pembayaran)</option>
-                            <option value="apotek" {{ old('status', $kunjungan->status) == 'apotek' ? 'selected' : '' }}>5. APOTEK (Menunggu Penyerahan Obat)</option>
-                            <option value="selesai" {{ old('status', $kunjungan->status) == 'selesai' ? 'selected' : '' }}>6. SELESAI (Pelayanan Selesai)</option>
+                            <option value="antri_triage" {{ old('status', $kunjungan->status) == 'antri_triage' ? 'selected' : '' }}>CEK VITAL SIGN (Pemeriksaan Awal Perawat)</option>
+                            <option value="antri_dokter" {{ old('status', $kunjungan->status) == 'antri_dokter' ? 'selected' : '' }}>ANTRI DOKTER (Menunggu Dipanggil Dokter)</option>
+                            <option value="periksa" {{ old('status', $kunjungan->status) == 'periksa' ? 'selected' : '' }}>PERIKSA (Sedang Diperiksa Dokter)</option>
+                            <option value="kasir" {{ old('status', $kunjungan->status) == 'kasir' ? 'selected' : '' }}>KASIR (Menunggu Pembayaran)</option>
+                            <option value="apotek" {{ old('status', $kunjungan->status) == 'apotek' ? 'selected' : '' }}>   APOTEK (Menunggu Penyerahan Obat)</option>
+                            <option value="selesai" {{ old('status', $kunjungan->status) == 'selesai' ? 'selected' : '' }}>SELESAI (Pelayanan Selesai)</option>
                             <option value="batal" {{ old('status', $kunjungan->status) == 'batal' ? 'selected' : '' }}>DIBATALKAN</option>
                         </select>
                     </div>

@@ -26,12 +26,12 @@
         <div>
             <x-input-label for="role" value="Peran / Role Staf" class="font-medium text-hfc-dark text-xs uppercase tracking-wider mb-1" />
             <select id="role" name="role" class="block w-full border-gray-200 focus:border-hfc-primary focus:ring-hfc-primary rounded-xl shadow-sm px-4 py-3 text-hfc-dark text-sm transition">
-                <option value="dokter" {{ old('role') == 'dokter' ? 'selected' : '' }}>🩺 Dokter</option>
-                <option value="perawat" {{ old('role') == 'perawat' ? 'selected' : '' }}>💉 Perawat / Triage</option>
-                <option value="resepsionis" {{ old('role') == 'resepsionis' ? 'selected' : '' }}>📋 Resepsionis / Pendaftaran</option>
-                <option value="apoteker" {{ old('role') == 'apoteker' ? 'selected' : '' }}>💊 Apoteker / Farmasi</option>
-                <option value="kasir" {{ old('role') == 'kasir' ? 'selected' : '' }}>💳 Kasir / Billing</option>
-                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>⚙️ Administrator</option>
+                <option value="dokter" {{ old('role') == 'dokter' ? 'selected' : '' }}>Dokter</option>
+                <option value="perawat" {{ old('role') == 'perawat' ? 'selected' : '' }}>Perawat / Cek Vital Sign</option>
+                <option value="resepsionis" {{ old('role') == 'resepsionis' ? 'selected' : '' }}>Resepsionis / Pendaftaran</option>
+                <option value="apoteker" {{ old('role') == 'apoteker' ? 'selected' : '' }}>Apoteker / Farmasi</option>
+                <option value="kasir" {{ old('role') == 'kasir' ? 'selected' : '' }}>Kasir / Billing</option>
+                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Administrator</option>
             </select>
             <x-input-error :messages="$errors->get('role')" class="mt-1" />
         </div>
