@@ -22,16 +22,21 @@
                         </p>
                     </div>
                     <div class="flex items-center gap-3 shrink-0">
+                        @if(Auth::user()->hasRole(['resepsionis', 'perawat']))
                         <a href="{{ route('kunjungan.create') }}"
                             class="px-5 py-3 font-black text-sm rounded-xl transition shadow-lg flex items-center gap-2 hover:opacity-90"
                             style="background-color: #ffffff; color: #b224ae;">
                             <span>Ambil Antrian Baru</span>
                         </a>
+                        @endif
+
+                        @if(Auth::user()->hasRole(['resepsionis', 'perawat', 'dokter']))
                         <a href="{{ route('pasien.create') }}"
                             class="px-4 py-3 font-bold text-sm rounded-xl transition shadow-md flex items-center gap-2 hover:bg-black/40"
                             style="background-color: rgba(0,0,0,0.25); color: #ffffff; border: 1px solid rgba(255,255,255,0.4);">
                             <span>Pasien Baru</span>
                         </a>
+                        @endif
                     </div>
                 </div>
             </div>

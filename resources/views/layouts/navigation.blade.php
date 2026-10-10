@@ -23,53 +23,75 @@
 
         <!-- Navigation Menu Links -->
         <nav class="px-4 py-6 space-y-1.5 flex-1 overflow-y-auto">
+            <!-- Dashboard (Semua Role) -->
             <a href="{{ route('dashboard') }}"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('dashboard') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <span class="material-symbols-outlined text-xl">dashboard</span>
                 <span>Dashboard</span>
             </a>
 
+            <!-- Pasien (Admin, Resepsionis, Perawat, Dokter) -->
+            @if(Auth::user()->hasRole(['resepsionis', 'perawat', 'dokter']))
             <a href="{{ route('pasien.index') }}"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('pasien.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <span class="material-symbols-outlined text-xl">groups</span>
                 <span>Pasien</span>
             </a>
+            @endif
 
+            <!-- Antrian (Admin, Resepsionis, Perawat) -->
+            @if(Auth::user()->hasRole(['resepsionis', 'perawat']))
             <a href="{{ route('kunjungan.index') }}"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('kunjungan.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <span class="material-symbols-outlined text-xl">queue</span>
                 <span>Antrian</span>
             </a>
+            @endif
 
+            <!-- Pemeriksaan Awal (Admin, Perawat) -->
+            @if(Auth::user()->hasRole('perawat'))
             <a href="{{ route('pemeriksaan-awal.index') }}"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('pemeriksaan-awal.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <span class="material-symbols-outlined text-xl">stethoscope</span>
                 <span>Pemeriksaan Awal</span>
             </a>
+            @endif
 
+            <!-- Rekam Medis (Admin, Dokter) -->
+            @if(Auth::user()->hasRole('dokter'))
             <a href="{{ route('rekam-medis.index') }}"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('rekam-medis.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <span class="material-symbols-outlined text-xl">medical_services</span>
                 <span>Rekam Medis</span>
             </a>
+            @endif
 
+            <!-- Tagihan / Kasir (Admin, Kasir) -->
+            @if(Auth::user()->hasRole('kasir'))
             <a href="{{ route('tagihan.index') }}"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('tagihan.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <span class="material-symbols-outlined text-xl">receipt_long</span>
                 <span>Tagihan</span>
             </a>
+            @endif
 
+            <!-- Pengambilan Obat (Admin, Apoteker) -->
+            @if(Auth::user()->hasRole('apoteker'))
             <a href="{{ route('resep-obat.index') }}"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('resep-obat.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <span class="material-symbols-outlined text-xl">medication</span>
                 <span>Pengambilan Obat</span>
             </a>
+            @endif
             
+            <!-- Data Obat (Admin, Apoteker, Dokter) -->
+            @if(Auth::user()->hasRole(['apoteker', 'dokter']))
             <a href="{{ route('obat.index') }}"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('obat.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <span class="material-symbols-outlined text-xl">pill</span>
                 <span>Data Obat</span>
             </a>
+            @endif
         </nav>
     </div>
 
@@ -78,11 +100,16 @@
         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
             <div @click="open = ! open">
                 <button type="button" class="w-full flex items-center justify-between p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 transition text-left focus:outline-none">
-                    <div class="truncate">
-                        <p class="text-sm font-bold text-gray-800 truncate">{{ Auth::user()->name }}</p>
+                    <div class="truncate w-full pr-1">
+                        <div class="flex items-center justify-between gap-1">
+                            <p class="text-sm font-bold text-gray-800 truncate">{{ Auth::user()->name }}</p>
+                            <span class="px-2 py-0.5 text-[10px] font-black uppercase rounded-full bg-hfc-primary/10 text-hfc-primary border border-hfc-primary/20 shrink-0">
+                                {{ Auth::user()->role ?? 'user' }}
+                            </span>
+                        </div>
                         <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
                     </div>
-                    <span class="material-symbols-outlined text-lg text-gray-500 shrink-0 ms-2 transition-transform duration-200" :class="{ 'rotate-180': open }">expand_more</span>
+                    <span class="material-symbols-outlined text-lg text-gray-500 shrink-0 ms-1 transition-transform duration-200" :class="{ 'rotate-180': open }">expand_more</span>
                 </button>
             </div>
 
