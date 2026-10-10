@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\KunjunganController;
+use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PemeriksaanAwalController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RekamMedisController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -37,13 +39,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/pemeriksaan-awal/{kunjungan}/create', [PemeriksaanAwalController::class, 'create'])->name('pemeriksaan-awal.create');
     Route::post('/pemeriksaan-awal/{kunjungan}', [PemeriksaanAwalController::class, 'store'])->name('pemeriksaan-awal.store');
 
-    Route::get('/rekam-medis', function () {
-        return view('rekam-medis.index');
-    })->name('rekam-medis.index');
+    // Route Ruang Dokter & Rekam Medis
+    Route::get('/rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
+    Route::get('/rekam-medis/{kunjungan}/create', [RekamMedisController::class, 'create'])->name('rekam-medis.create');
+    Route::post('/rekam-medis/{kunjungan}', [RekamMedisController::class, 'store'])->name('rekam-medis.store');
 
-    Route::get('/obat', function () {
-        return view('obat.index');
-    })->name('obat.index');
+    // Route Master Data Obat
+    Route::resource('obat', ObatController::class);
 
     Route::get('/resep-obat', function () {
         return view('resep-obat.index');
