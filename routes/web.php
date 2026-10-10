@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\KunjunganController;
+use App\Http\Controllers\PasienController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,13 +18,18 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/pasien', function () {
-        return view('pasien.index');
-    })->name('pasien.index');
+    // Route Modul Pasien
+    Route::get('/pasien', [PasienController::class, 'index'])->name('pasien.index');
+    Route::get('/pasien/create', [PasienController::class, 'create'])->name('pasien.create');
+    Route::post('/pasien', [PasienController::class, 'store'])->name('pasien.store');
 
-    Route::get('/kunjungan', function () {
-        return view('kunjungan.index');
-    })->name('kunjungan.index');
+    // Route Registrasi & Antrian Pasien
+    Route::get('/kunjungan', [KunjunganController::class, 'index'])->name('kunjungan.index');
+    Route::get('/kunjungan/create', [KunjunganController::class, 'create'])->name('kunjungan.create');
+    Route::post('/kunjungan', [KunjunganController::class, 'store'])->name('kunjungan.store');
+    Route::get('/kunjungan/{kunjungan}/edit', [KunjunganController::class, 'edit'])->name('kunjungan.edit');
+    Route::put('/kunjungan/{kunjungan}', [KunjunganController::class, 'update'])->name('kunjungan.update');
+    Route::delete('/kunjungan/{kunjungan}', [KunjunganController::class, 'destroy'])->name('kunjungan.destroy');
 
     Route::get('/rekam-medis', function () {
         return view('rekam-medis.index');

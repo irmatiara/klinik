@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('kunjungan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pasien_id')->constrained('pasien')->onDelete('cascade');
+            $table->string('no_antrian')->nullable();
             $table->dateTime('tanggal_kunjungan');
-            $table->enum('status', ['antri', 'periksa', 'kasir', 'selesai', 'batal'])->default('antri');
+            $table->enum('status', ['antri_triage', 'antri_dokter', 'periksa', 'kasir', 'apotek', 'selesai', 'batal'])->default('antri_triage');
             $table->timestamps();
         });
     }
