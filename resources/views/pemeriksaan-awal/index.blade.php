@@ -27,39 +27,38 @@
                     <h3 class="text-2xl font-bold text-hfc-dark mt-1">Pemeriksaan Suhu, Tekanan Darah & Berat Badan</h3>
                     <p class="text-gray-600 text-sm mt-1">Dipanggil oleh Perawat sebelum pasien masuk ke ruang periksa Dokter.</p>
                 </div>
-                <div class="hidden sm:block text-5xl">
-                    🩺
-                </div>
             </div>
 
             <!-- Card Filter & Search -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-2xl p-6 border border-gray-100">
-                <form method="GET" action="{{ route('pemeriksaan-awal.index') }}" class="flex flex-col sm:flex-row items-center gap-3">
-                    <select name="status" class="w-full sm:w-auto text-sm border-gray-200 rounded-xl focus:border-hfc-primary focus:ring-hfc-primary py-2.5 px-3 font-medium text-gray-700">
-                        <option value="antri_triage" {{ request('status') == 'antri_triage' ? 'selected' : '' }}>Antri Pemeriksaan Awal</option>
-                        <option value="antri_dokter" {{ request('status') == 'antri_dokter' ? 'selected' : '' }}>Sudah Periksa Awal (Antri Dokter)</option>
-                    </select>
-                    <div class="relative w-full sm:w-80">
-                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Nama Pasien / No. RM..." class="w-full pl-10 pr-4 py-2.5 text-sm border-gray-200 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary">
-                    </div>
-                    <button type="submit" class="px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap shadow-sm shadow-hfc-primary/20">
-                        Cari
-                    </button>
-                    @if(request('search') || request('status'))
-                        <a href="{{ route('pemeriksaan-awal.index') }}" class="px-4 py-2.5 bg-white border border-rose-200 hover:border-rose-400 hover:bg-rose-50 text-rose-600 font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 shadow-sm">
-                            <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                            </svg>
-                            <span>Reset</span>
-                        </a>
-                    @endif
-                </form>
+                <div class="mb-6 flex justify-end">
+                    <form method="GET" action="{{ route('pemeriksaan-awal.index') }}" class="flex flex-col sm:flex-row items-center justify-end gap-3 w-full sm:w-auto">
+                        <select name="status" class="w-full sm:w-auto text-sm border-gray-200 rounded-xl focus:border-hfc-primary focus:ring-hfc-primary py-2.5 px-3 font-medium text-gray-700">
+                            <option value="antri_triage" {{ request('status') == 'antri_triage' ? 'selected' : '' }}>Antri Pemeriksaan Awal</option>
+                            <option value="antri_dokter" {{ request('status') == 'antri_dokter' ? 'selected' : '' }}>Sudah Periksa Awal (Antri Dokter)</option>
+                        </select>
+                        <div class="relative w-full sm:w-80">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Nama Pasien / No. RM..." class="w-full pl-10 pr-4 py-2.5 text-sm border-gray-200 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary">
+                        </div>
+                        <button type="submit" class="px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap shadow-sm shadow-hfc-primary/20">
+                            Cari
+                        </button>
+                        @if(request('search') || request('status'))
+                            <a href="{{ route('pemeriksaan-awal.index') }}" class="px-4 py-2.5 bg-white border border-rose-200 hover:border-rose-400 hover:bg-rose-50 text-rose-600 font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 shadow-sm">
+                                <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                </svg>
+                                <span>Reset</span>
+                            </a>
+                        @endif
+                    </form>
+                </div>
 
                 <!-- Tabel Antrian Pemeriksaan Awal -->
-                <div class="mt-6 overflow-x-auto rounded-xl border border-gray-100">
+                <div class="overflow-x-auto rounded-xl border border-gray-100">
                     <table class="w-full text-left border-collapse text-sm">
                         <thead>
-                            <tr class="bg-gray-50/80 text-gray-500 font-semibold border-b border-gray-100">
+                            <tr class="bg-gray-50 text-gray-900 font-bold border-b border-gray-200">
                                 <th class="p-4">No. Antrian</th>
                                 <th class="p-4">Nama Pasien / No. RM</th>
                                 <th class="p-4">Suhu (°C)</th>

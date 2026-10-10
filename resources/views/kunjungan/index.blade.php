@@ -27,8 +27,8 @@
                 </div>
 
                 <!-- Baris Pencarian & Filter (Atas-Bawah / Stacked) -->
-                <div class="mb-6">
-                    <form method="GET" action="{{ route('kunjungan.index') }}" class="flex flex-col sm:flex-row items-center gap-3">
+                <div class="mb-6 flex justify-end">
+                    <form method="GET" action="{{ route('kunjungan.index') }}" class="flex flex-col sm:flex-row items-center justify-end gap-3 w-full sm:w-auto">
                         <select name="status" class="text-sm border-gray-200 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary py-2.5 px-3 w-full sm:w-auto font-medium text-gray-700">
                             <option value="">Semua Status Antrian</option>
                             <option value="antri_triage" {{ request('status') == 'antri_triage' ? 'selected' : '' }}>Pemeriksaan Awal (Perawat)</option>
@@ -59,7 +59,7 @@
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="bg-hfc-bg text-hfc-dark text-xs uppercase tracking-wider font-semibold border-b border-gray-100">
+                            <tr class="bg-gray-50 text-gray-900 text-xs uppercase tracking-wider font-bold border-b border-gray-200">
                                 <th class="p-4">No. Antrian</th>
                                 <th class="p-4">Nama Pasien</th>
                                 <th class="p-4">No. RM</th>

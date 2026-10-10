@@ -37,8 +37,8 @@
                 </div>
 
                 <!-- Baris Pencarian & Filter (Atas-Bawah / Stacked) -->
-                <div class="mb-6">
-                    <form method="GET" action="{{ route('resep-obat.index') }}" class="flex flex-col sm:flex-row items-center gap-3">
+                <div class="mb-6 flex justify-end">
+                    <form method="GET" action="{{ route('resep-obat.index') }}" class="flex flex-col sm:flex-row items-center justify-end gap-3 w-full sm:w-auto">
                         <select name="status" class="text-sm border-gray-200 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary py-2.5 px-3 w-full sm:w-auto font-medium text-gray-700">
                             <option value="apotek" {{ request('status') == 'apotek' ? 'selected' : '' }}>Antri Apotek (Menunggu Obat)</option>
                             <option value="selesai" {{ request('status') == 'selesai' ? 'selected' : '' }}>Selesai (Sudah Ambil Obat)</option>
@@ -64,7 +64,7 @@
                 <div class="overflow-x-auto rounded-xl border border-gray-100">
                     <table class="w-full text-left border-collapse text-sm">
                         <thead>
-                            <tr class="bg-gray-50/80 text-gray-500 font-semibold border-b border-gray-100">
+                            <tr class="bg-gray-50 text-gray-900 font-bold border-b border-gray-200">
                                 <th class="p-4">No. Antrian</th>
                                 <th class="p-4">Nama Pasien / No. RM</th>
                                 <th class="p-4">Rincian Resep Obat (Dokter)</th>

@@ -34,8 +34,8 @@
                 </div>
 
                 <!-- Baris Pencarian (Atas-Bawah / Stacked) -->
-                <div class="mb-6">
-                    <form method="GET" action="{{ route('obat.index') }}" class="flex flex-row items-center gap-2">
+                <div class="mb-6 flex justify-end">
+                    <form method="GET" action="{{ route('obat.index') }}" class="flex flex-row items-center justify-end gap-2 w-full sm:w-auto">
                         <div class="relative w-full sm:w-80">
                             <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Kode / Nama Obat..." class="w-full pl-10 pr-4 py-2.5 text-sm border-gray-200 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary">
                         </div>
@@ -57,7 +57,7 @@
                 <div class="overflow-x-auto rounded-xl border border-gray-100">
                     <table class="w-full text-left border-collapse text-sm">
                         <thead>
-                            <tr class="bg-gray-50/80 text-gray-500 font-semibold border-b border-gray-100">
+                            <tr class="bg-gray-50 text-gray-900 font-bold border-b border-gray-200">
                                 <th class="p-4">Kode Obat</th>
                                 <th class="p-4">Nama Obat</th>
                                 <th class="p-4">Harga Satuan</th>
