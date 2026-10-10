@@ -15,55 +15,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Proteksi Keamanan Route Maintenance
-$checkMaintenanceAccess = function (\Illuminate\Http\Request $request) {
-    if (env('ALLOW_MAINTENANCE_ROUTES', true) === false) {
-        abort(403, 'Akses route maintenance telah dinonaktifkan.');
-    }
-
-    $secretKey = env('MAINTENANCE_KEY', 'klinik-admin-secret-2026');
-    $providedKey = $request->query('key');
-
-    if ($providedKey !== $secretKey) {
-        if (!auth()->check() || !auth()->user()->isAdmin()) {
-            abort(403, 'Akses Ditolak: Route maintenance dilindungi dan memerlukan autentikasi Admin serta Kunci Rahasia.');
-        }
-    }
-};
-
-Route::get('/artisan-migrate', function (\Illuminate\Http\Request $request) use ($checkMaintenanceAccess) {
-    $checkMaintenanceAccess($request);
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        $output = \Illuminate\Support\Facades\Artisan::output();
-        return '<h2>Migration Successful!</h2><pre>' . htmlspecialchars($output) . '</pre><br><a href="/">Kembali ke Aplikasi</a>';
-    } catch (\Throwable $e) {
-        return '<h2>Migration Error</h2><pre style="color:red;">' . htmlspecialchars((string)$e) . '</pre>';
-    }
-});
-
-Route::get('/artisan-migrate-fresh', function (\Illuminate\Http\Request $request) use ($checkMaintenanceAccess) {
-    $checkMaintenanceAccess($request);
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
-        $output = \Illuminate\Support\Facades\Artisan::output();
-        return '<h2>Migrate Fresh & Seed Successful!</h2><pre>' . htmlspecialchars($output) . '</pre><br><a href="/">Kembali ke Aplikasi</a>';
-    } catch (\Throwable $e) {
-        return '<h2>Migrate Fresh Error</h2><pre style="color:red;">' . htmlspecialchars((string)$e) . '</pre>';
-    }
-});
-
-Route::get('/artisan-seed', function (\Illuminate\Http\Request $request) use ($checkMaintenanceAccess) {
-    $checkMaintenanceAccess($request);
-    try {
-        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
-        $output = \Illuminate\Support\Facades\Artisan::output();
-        return '<h2>Seeding Successful!</h2><pre>' . htmlspecialchars($output) . '</pre><br><a href="/">Kembali ke Aplikasi</a>';
-    } catch (\Throwable $e) {
-        return '<h2>Seeding Error</h2><pre style="color:red;">' . htmlspecialchars((string)$e) . '</pre>';
-    }
-});
-
 Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

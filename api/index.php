@@ -43,13 +43,6 @@ $_ENV['APP_ROUTES_CACHE'] = '/tmp/storage/bootstrap/cache/routes-v7.php';
 putenv('APP_EVENTS_CACHE=/tmp/storage/bootstrap/cache/events.php');
 $_ENV['APP_EVENTS_CACHE'] = '/tmp/storage/bootstrap/cache/events.php';
 
-// If running migration/seed endpoint, temporarily use file session driver to avoid missing database table errors
-$requestUri = $_SERVER['REQUEST_URI'] ?? '';
-if (str_contains($requestUri, 'artisan-migrate') || str_contains($requestUri, 'artisan-seed')) {
-    putenv('SESSION_DRIVER=file');
-    $_ENV['SESSION_DRIVER'] = 'file';
-}
-
 // Require Laravel entrypoint
 try {
     require __DIR__ . '/../public/index.php';
