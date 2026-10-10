@@ -60,44 +60,54 @@ class DatabaseSeeder extends Seeder
         }
 
         // 2. Sample Data Pasien
-        Pasien::create([
-            'no_rm' => 'RM-0001',
-            'nama' => 'Budi Santoso',
-            'tgl_lahir' => '1990-05-15',
-            'jenis_kelamin' => 'L',
-            'no_telp' => '081234567890',
-            'alamat' => 'Jl. Merdeka No. 12, Jakarta',
-        ]);
+        Pasien::firstOrCreate(
+            ['no_rm' => 'RM-0001'],
+            [
+                'nama' => 'Budi Santoso',
+                'tgl_lahir' => '1990-05-15',
+                'jenis_kelamin' => 'L',
+                'no_telp' => '081234567890',
+                'alamat' => 'Jl. Merdeka No. 12, Jakarta',
+            ]
+        );
 
-        Pasien::create([
-            'no_rm' => 'RM-0002',
-            'nama' => 'Siti Rahma',
-            'tgl_lahir' => '1995-08-20',
-            'jenis_kelamin' => 'P',
-            'no_telp' => '089876543210',
-            'alamat' => 'Jl. Sudirman No. 45, Jakarta',
-        ]);
+        Pasien::firstOrCreate(
+            ['no_rm' => 'RM-0002'],
+            [
+                'nama' => 'Siti Rahma',
+                'tgl_lahir' => '1995-08-20',
+                'jenis_kelamin' => 'P',
+                'no_telp' => '089876543210',
+                'alamat' => 'Jl. Sudirman No. 45, Jakarta',
+            ]
+        );
 
         // 3. Sample Data Obat
-        Obat::create([
-            'kode_obat' => 'OBT-001',
-            'nama_obat' => 'Paracetamol 500mg',
-            'harga' => 10000,
-            'stok' => 100,
-        ]);
+        Obat::firstOrCreate(
+            ['kode_obat' => 'OBT-001'],
+            [
+                'nama_obat' => 'Paracetamol 500mg',
+                'harga' => 10000,
+                'stok' => 100,
+            ]
+        );
 
-        Obat::create([
-            'kode_obat' => 'OBT-002',
-            'nama_obat' => 'Amoxicillin 500mg',
-            'harga' => 25000,
-            'stok' => 50,
-        ]);
+        Obat::firstOrCreate(
+            ['kode_obat' => 'OBT-002'],
+            [
+                'nama_obat' => 'Amoxicillin 500mg',
+                'harga' => 25000,
+                'stok' => 50,
+            ]
+        );
 
-        Obat::create([
-            'kode_obat' => 'OBT-003',
-            'nama_obat' => 'Vitamin C 1000mg',
-            'harga' => 15000,
-            'stok' => 80,
-        ]);
+        Obat::firstOrCreate(
+            ['kode_obat' => 'OBT-003'],
+            [
+                'nama_obat' => 'Vitamin C 1000mg',
+                'harga' => 15000,
+                'stok' => 80,
+            ]
+        );
     }
 }
