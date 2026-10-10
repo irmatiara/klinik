@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\FarmasiController;
 use App\Http\Controllers\KunjunganController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PemeriksaanAwalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
+use App\Http\Controllers\TagihanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,13 +49,14 @@ Route::middleware('auth')->group(function () {
     // Route Master Data Obat
     Route::resource('obat', ObatController::class);
 
-    Route::get('/resep-obat', function () {
-        return view('resep-obat.index');
-    })->name('resep-obat.index');
+    // Route Pembayaran Kasir & Tagihan
+    Route::get('/tagihan', [TagihanController::class, 'index'])->name('tagihan.index');
+    Route::get('/tagihan/{tagihan}/edit', [TagihanController::class, 'edit'])->name('tagihan.edit');
+    Route::put('/tagihan/{tagihan}', [TagihanController::class, 'update'])->name('tagihan.update');
 
-    Route::get('/tagihan', function () {
-        return view('tagihan.index');
-    })->name('tagihan.index');
+    // Route Stasiun Farmasi & Penyerahan Obat
+    Route::get('/resep-obat', [FarmasiController::class, 'index'])->name('resep-obat.index');
+    Route::post('/resep-obat/{kunjungan}/serahkan', [FarmasiController::class, 'serahkanObat'])->name('resep-obat.serahkan');
 });
 
 require __DIR__.'/auth.php';

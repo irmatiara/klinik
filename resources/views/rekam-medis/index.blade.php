@@ -20,7 +20,6 @@
                 </div>
             @endif
 
-            <!-- Banner Tahap 4 -->
             <div class="bg-white rounded-2xl p-6 border border-hfc-primary/20 shadow-lg shadow-hfc-primary/5 flex items-center justify-between relative overflow-hidden">
                 <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-hfc-primary/5 rounded-full blur-2xl pointer-events-none"></div>
                 <div>

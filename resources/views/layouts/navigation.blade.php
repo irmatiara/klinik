@@ -71,20 +71,20 @@
                 <span>Obat</span>
             </a>
 
-            <a href="{{ route('resep-obat.index') }}"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('resep-obat.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 00-1.87 1.05A6 6 0 004 19.5v.5h16v-.5a6 6 0 00-.572-3.072z" />
-                </svg>
-                <span>Resep Obat</span>
-            </a>
-
             <a href="{{ route('tagihan.index') }}"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('tagihan.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 <span>Tagihan</span>
+            </a>
+
+            <a href="{{ route('resep-obat.index') }}"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('resep-obat.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 00-1.87 1.05A6 6 0 004 19.5v.5h16v-.5a6 6 0 00-.572-3.072z" />
+                </svg>
+                <span>Resep Obat</span>
             </a>
         </nav>
     </div>

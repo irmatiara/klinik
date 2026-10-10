@@ -20,13 +20,10 @@
                 </div>
             @endif
 
-            <!-- Banner Penjelasan Tahap 3 -->
+            <!-- Banner Penjelasan -->
             <div class="bg-white rounded-2xl p-6 border border-hfc-primary/20 shadow-lg shadow-hfc-primary/5 flex items-center justify-between relative overflow-hidden">
                 <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-hfc-primary/5 rounded-full blur-2xl pointer-events-none"></div>
                 <div>
-                    <span class="bg-hfc-light text-hfc-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block mb-1 border border-hfc-primary/20">
-                        Tahap 3 Alur Pelayanan
-                    </span>
                     <h3 class="text-2xl font-bold text-hfc-dark mt-1">Pemeriksaan Suhu, Tekanan Darah & Berat Badan</h3>
                     <p class="text-gray-600 text-sm mt-1">Dipanggil oleh Perawat sebelum pasien masuk ke ruang periksa Dokter.</p>
                 </div>
