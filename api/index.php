@@ -15,6 +15,12 @@ foreach ($directories as $dir) {
     }
 }
 
+// Ensure HTTPS scheme is recognized behind Vercel reverse proxy
+if ((isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') || getenv('VERCEL')) {
+    $_SERVER['HTTPS'] = 'on';
+    $_SERVER['SERVER_PORT'] = 443;
+}
+
 // Redirect Laravel storage & compiled view & bootstrap cache paths to writable /tmp
 putenv('VIEW_COMPILED_PATH=/tmp/storage/framework/views');
 $_ENV['VIEW_COMPILED_PATH'] = '/tmp/storage/framework/views';
