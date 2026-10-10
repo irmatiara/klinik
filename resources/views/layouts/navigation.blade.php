@@ -1,100 +1,121 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
+<!-- Sidebar Overlay for Mobile -->
+<div x-show="sidebarOpen"
+    @click="sidebarOpen = false"
+    x-transition:enter="transition-opacity ease-linear duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition-opacity ease-linear duration-300"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    class="fixed inset-0 z-40 bg-gray-900/50 lg:hidden"></div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-            </div>
+<!-- Sidebar Container -->
+<aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:sticky lg:top-0 h-screen flex flex-col justify-between shrink-0">
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+    <div class="flex flex-col flex-1 min-h-0">
+        <!-- Sidebar Brand / Logo -->
+        <div class="h-16 flex items-center justify-center px-4 border-b border-gray-100 shrink-0">
+            <a href="{{ route('dashboard') }}" class="block w-full">
+                <x-application-logo />
+            </a>
+        </div>
 
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
+        <!-- Navigation Menu Links -->
+        <nav class="px-4 py-6 space-y-1.5 flex-1 overflow-y-auto">
+            <a href="{{ route('dashboard') }}"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('dashboard') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span>Dashboard</span>
+            </a>
 
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
+            <a href="{{ route('pasien.index') }}"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('pasien.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span>Pasien</span>
+            </a>
 
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
+            <a href="{{ route('kunjungan.index') }}"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('kunjungan.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>Kunjungan</span>
+            </a>
 
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
+            <a href="{{ route('rekam-medis.index') }}"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('rekam-medis.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>Rekam Medis</span>
+            </a>
 
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            <a href="{{ route('obat.index') }}"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('obat.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 00-1.87 1.05A6 6 0 004 19.5v.5h16v-.5a6 6 0 00-.572-3.072zM12 11a4 4 0 100-8 4 4 0 000 8z" />
+                </svg>
+                <span>Obat</span>
+            </a>
+
+            <a href="{{ route('resep-obat.index') }}"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('resep-obat.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 00-1.87 1.05A6 6 0 004 19.5v.5h16v-.5a6 6 0 00-.572-3.072z" />
+                </svg>
+                <span>Resep Obat</span>
+            </a>
+
+            <a href="{{ route('tagihan.index') }}"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('tagihan.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>Tagihan</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Sidebar Footer / User Profile Dropdown -->
+    <div class="p-4 border-t border-gray-100 shrink-0">
+        <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
+            <div @click="open = ! open">
+                <button type="button" class="w-full flex items-center justify-between p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 transition text-left focus:outline-none">
+                    <div class="truncate">
+                        <p class="text-sm font-bold text-gray-800 truncate">{{ Auth::user()->name }}</p>
+                        <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
+                    </div>
+                    <svg class="w-4 h-4 text-gray-500 shrink-0 ms-2 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
             </div>
-        </div>
-    </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+            <div x-show="open"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave-end="opacity-0 scale-95"
+                class="absolute z-50 bottom-full mb-2 w-full rounded-xl shadow-lg bg-white border border-gray-100 py-1"
+                style="display: none;"
+                @click="open = false">
+                <x-dropdown-link :href="route('profile.edit')">
                     {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
+                </x-dropdown-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
                         {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    </x-dropdown-link>
                 </form>
             </div>
         </div>
     </div>
-</nav>
+</aside>
