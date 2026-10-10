@@ -15,25 +15,35 @@
             @endif
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-2xl p-6 border border-gray-100">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <!-- Header Card (Judul & Tombol Tambah) -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 pb-4 mb-4">
                     <div>
                         <h3 class="text-lg font-bold text-hfc-dark">Daftar Pasien Terdaftar</h3>
                         <p class="text-sm text-gray-500">Kelola informasi data pasien klinik</p>
                     </div>
-                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
-                        <form method="GET" action="{{ route('pasien.index') }}" class="flex items-center gap-2">
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Nama / No. RM / Telp..." class="text-sm border-gray-300 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary px-3 py-2">
-                            <button type="submit" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-sm rounded-xl transition">
-                                Cari
-                            </button>
-                            @if(request('search'))
-                                <a href="{{ route('pasien.index') }}" class="px-3 py-2 bg-gray-50 text-gray-500 text-xs font-semibold rounded-xl">Reset</a>
-                            @endif
-                        </form>
-                        <a href="{{ route('pasien.create') }}" class="inline-flex items-center justify-center px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white text-sm font-semibold rounded-xl transition shadow-md shadow-hfc-primary/20 whitespace-nowrap">
-                            + Tambah Pasien Baru
-                        </a>
-                    </div>
+                    <a href="{{ route('pasien.create') }}" class="inline-flex items-center justify-center px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white text-sm font-semibold rounded-xl transition shadow-md shadow-hfc-primary/20 whitespace-nowrap">
+                        + Tambah Pasien Baru
+                    </a>
+                </div>
+
+                <!-- Baris Pencarian (Atas-Bawah / Stacked) -->
+                <div class="mb-6">
+                    <form method="GET" action="{{ route('pasien.index') }}" class="flex flex-row items-center gap-2">
+                        <div class="relative w-full sm:w-80">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari Nama / No. RM / Telp..." class="w-full pl-10 pr-4 py-2.5 text-sm border-gray-200 rounded-xl focus:ring-hfc-primary focus:border-hfc-primary">
+                        </div>
+                        <button type="submit" class="px-4 py-2.5 bg-hfc-primary hover:bg-hfc-hover text-white font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap shadow-sm shadow-hfc-primary/20">
+                            Cari
+                        </button>
+                        @if(request('search'))
+                            <a href="{{ route('pasien.index') }}" class="px-4 py-2.5 bg-white border border-rose-200 hover:border-rose-400 hover:bg-rose-50 text-rose-600 font-semibold text-sm rounded-xl transition shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 shadow-sm">
+                                <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                </svg>
+                                <span>Reset</span>
+                            </a>
+                        @endif
+                    </form>
                 </div>
 
                 <div class="overflow-x-auto">
