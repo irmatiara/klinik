@@ -62,7 +62,7 @@
                     <!-- Biaya Layanan / Admin -->
                     <div>
                         <x-input-label for="biaya_layanan" :value="__('Biaya Administrasi & Layanan (Rp)')" />
-                        <x-text-input id="biaya_layanan" class="block mt-1 w-full" type="number" name="biaya_layanan" :value="old('biaya_layanan', 50000)" required />
+                        <x-text-input id="biaya_layanan" class="block mt-1 w-full" type="number" min="0" name="biaya_layanan" :value="old('biaya_layanan')" placeholder="Masukkan biaya administrasi & layanan (Rp)" required />
                         <span class="text-xs text-gray-400">Biaya dasar registrasi & jasa pelayanan dokter klinik</span>
                     </div>
 

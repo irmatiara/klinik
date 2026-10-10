@@ -89,7 +89,7 @@ class RekamMedis extends Model
             // Hitung & Update Tagihan Kasir
             $tagihan = Tagihan::firstOrCreate(
                 ['kunjungan_id' => $kunjungan->id],
-                ['biaya_layanan' => 50000, 'biaya_obat' => 0, 'total_tagihan' => 50000, 'status_bayar' => 'belum_lunas']
+                ['biaya_layanan' => 0, 'biaya_obat' => 0, 'total_tagihan' => 0, 'status_bayar' => 'belum_lunas']
             );
 
             $biayaLayanan = $tagihan->biaya_layanan;
