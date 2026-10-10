@@ -25,6 +25,16 @@ Route::get('/artisan-migrate', function () {
     }
 });
 
+Route::get('/artisan-migrate-fresh', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+        $output = \Illuminate\Support\Facades\Artisan::output();
+        return '<h2>Migrate Fresh & Seed Successful!</h2><pre>' . htmlspecialchars($output) . '</pre><br><a href="/">Kembali ke Aplikasi</a>';
+    } catch (\Throwable $e) {
+        return '<h2>Migrate Fresh Error</h2><pre style="color:red;">' . htmlspecialchars((string)$e) . '</pre>';
+    }
+});
+
 Route::get('/artisan-seed', function () {
     try {
         \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
