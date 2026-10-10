@@ -53,12 +53,6 @@
                 <span>Rekam Medis</span>
             </a>
 
-            <a href="{{ route('obat.index') }}"
-                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('obat.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
-                <span class="material-symbols-outlined text-xl">pill</span>
-                <span>Data Obat</span>
-            </a>
-
             <a href="{{ route('tagihan.index') }}"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('tagihan.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <span class="material-symbols-outlined text-xl">receipt_long</span>
@@ -69,6 +63,12 @@
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('resep-obat.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
                 <span class="material-symbols-outlined text-xl">medication</span>
                 <span>Pengambilan Obat</span>
+            </a>
+            
+            <a href="{{ route('obat.index') }}"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('obat.*') ? 'bg-hfc-primary text-white shadow-md shadow-hfc-primary/20' : 'text-gray-600 hover:bg-hfc-light/60 hover:text-hfc-primary' }}">
+                <span class="material-symbols-outlined text-xl">pill</span>
+                <span>Data Obat</span>
             </a>
         </nav>
     </div>
