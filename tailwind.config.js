@@ -12,7 +12,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Montserrat', 'Poppins', ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', 'Montserrat', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 hfc: {
