@@ -37,25 +37,11 @@ class FarmasiController extends Controller
     }
 
     /**
-     * Memproses penyerahan obat ke pasien, memotong stok obat otomatis, dan menyelesaiakan pelayanan.
+     * Memproses penyerahan obat ke pasien, memotong stok obat otomatis, dan menyelesaikan pelayanan.
      */
     public function serahkanObat(Request $request, Kunjungan $kunjungan)
     {
-        $kunjungan->load(['resepObats.obat', 'pasien']);
-
-        DB::transaction(function () use ($kunjungan) {
-            // 1. Potong stok masing-masing obat
-            foreach ($kunjungan->resepObats as $resep) {
-                if ($resep->obat) {
-                    $resep->obat->decrement('stok', $resep->jumlah);
-                }
-            }
-
-            // 2. Ubah status kunjungan ke 'selesai'
-            $kunjungan->update([
-                'status' => 'selesai',
-            ]);
-        });
+        $kunjungan->serahkanObatDanSelesaikan();
 
         return redirect()->route('resep-obat.index')
             ->with('success', 'Obat berhasil diserahkan kepada pasien ' . ($kunjungan->pasien->nama ?? '') . '! Stok obat otomatis terpotong & pelayanan selesai.');

@@ -33,11 +33,7 @@ class PasienController extends Controller
      */
     public function create()
     {
-        // Generate nomor rekam medis
-        $lastPasien = Pasien::latest('id')->first();
-        $nextId = $lastPasien ? $lastPasien->id + 1 : 1;
-        $autoNoRm = 'RM-' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
-
+        $autoNoRm = Pasien::generateNoRm();
         return view('pasien.create', compact('autoNoRm'));
     }
 
@@ -55,9 +51,8 @@ class PasienController extends Controller
             'alamat' => 'required|string',
         ]);
 
-        $pasien = Pasien::create($validated);
+        $pasien = Pasien::simpanPasien($validated);
 
-        // Jika pendaftaran pasien baru dilakukan langsung dari form antrian
         if ($request->has('redirect_to_antrian')) {
             return redirect()->route('kunjungan.create', ['pasien_id' => $pasien->id])
                 ->with('success', 'Pasien baru berhasil didaftarkan! Silakan lanjutkan pembuatan antrian.');

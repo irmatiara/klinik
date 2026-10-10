@@ -57,20 +57,7 @@ class PemeriksaanAwalController extends Controller
             'berat_badan' => 'required|numeric|min:1|max:300',
         ]);
 
-        // Simpan / update ke rekam_medis
-        RekamMedis::updateOrCreate(
-            ['kunjungan_id' => $kunjungan->id],
-            [
-                'suhu' => $validated['suhu'],
-                'tekanan_darah' => $validated['tekanan_darah'],
-                'berat_badan' => $validated['berat_badan'],
-            ]
-        );
-
-        // Update status kunjungan menjadi 'antri_dokter'
-        $kunjungan->update([
-            'status' => 'antri_dokter',
-        ]);
+        RekamMedis::simpanPemeriksaanAwal($kunjungan, $validated);
 
         return redirect()->route('pemeriksaan-awal.index')
             ->with('success', 'Pemeriksaan Awal antrian ' . $kunjungan->no_antrian . ' berhasil disimpan! Pasien diserahkan ke Dokter.');

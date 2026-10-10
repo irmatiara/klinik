@@ -30,10 +30,7 @@ class ObatController extends Controller
      */
     public function create()
     {
-        // Generate otomatis kode obat, misal: OBT-001
-        $latestId = Obat::max('id') ?? 0;
-        $autoKodeObat = 'OBT-' . str_pad($latestId + 1, 3, '0', STR_PAD_LEFT);
-
+        $autoKodeObat = Obat::generateKodeObat();
         return view('obat.create', compact('autoKodeObat'));
     }
 
@@ -49,7 +46,7 @@ class ObatController extends Controller
             'stok' => 'required|integer|min:0',
         ]);
 
-        Obat::create($validated);
+        Obat::simpanObat($validated);
 
         return redirect()->route('obat.index')
             ->with('success', 'Data obat ' . $validated['nama_obat'] . ' berhasil ditambahkan!');
@@ -75,7 +72,7 @@ class ObatController extends Controller
             'stok' => 'required|integer|min:0',
         ]);
 
-        $obat->update($validated);
+        $obat->perbaruiObat($validated);
 
         return redirect()->route('obat.index')
             ->with('success', 'Data obat ' . $validated['nama_obat'] . ' berhasil diperbarui!');

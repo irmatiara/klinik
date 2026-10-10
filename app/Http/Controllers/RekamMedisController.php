@@ -67,61 +67,7 @@ class RekamMedisController extends Controller
             'aturan_pakai.*' => 'string|max:255',
         ]);
 
-        DB::transaction(function () use ($request, $kunjungan, $validated) {
-            // 1. Simpan / Update Rekam Medis
-            RekamMedis::updateOrCreate(
-                ['kunjungan_id' => $kunjungan->id],
-                [
-                    'user_id' => auth()->id(),
-                    'keluhan' => $validated['keluhan'],
-                    'diagnosa' => $validated['diagnosa'],
-                ]
-            );
-
-            // 2. Simpan Resep Obat
-            ResepObat::where('kunjungan_id', $kunjungan->id)->delete();
-            $totalBiayaObat = 0;
-
-            if ($request->has('obat_id') && is_array($request->obat_id)) {
-                foreach ($request->obat_id as $index => $obatId) {
-                    if (!empty($obatId)) {
-                        $qty = $validated['jumlah'][$index] ?? 1;
-                        $aturan = $validated['aturan_pakai'][$index] ?? '3x1 Sehari Sesudah Makan';
-
-                        ResepObat::create([
-                            'kunjungan_id' => $kunjungan->id,
-                            'obat_id' => $obatId,
-                            'jumlah' => $qty,
-                            'aturan_pakai' => $aturan,
-                        ]);
-
-                        $obat = Obat::find($obatId);
-                        if ($obat) {
-                            $totalBiayaObat += ($obat->harga * $qty);
-                        }
-                    }
-                }
-            }
-
-            // 3. Hitung & Update Tagihan Kasir
-            $tagihan = Tagihan::firstOrCreate(
-                ['kunjungan_id' => $kunjungan->id],
-                ['biaya_layanan' => 50000, 'biaya_obat' => 0, 'total_tagihan' => 50000, 'status_bayar' => 'belum_lunas']
-            );
-
-            $biayaLayanan = $tagihan->biaya_layanan;
-            $totalTagihanBaru = $biayaLayanan + $totalBiayaObat;
-
-            $tagihan->update([
-                'biaya_obat' => $totalBiayaObat,
-                'total_tagihan' => $totalTagihanBaru,
-            ]);
-
-            // 4. Update status kunjungan ke 'kasir' (Menunggu Pembayaran)
-            $kunjungan->update([
-                'status' => 'kasir',
-            ]);
-        });
+        RekamMedis::simpanPemeriksaanDokter($kunjungan, $validated, $request->all());
 
         return redirect()->route('rekam-medis.index')
             ->with('success', 'Pemeriksaan Rekam Medis & Resep antrian ' . $kunjungan->no_antrian . ' berhasil disimpan! Pasien dioper ke Kasir.');

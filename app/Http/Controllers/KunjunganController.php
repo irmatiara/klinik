@@ -41,13 +41,7 @@ class KunjunganController extends Controller
      */
     public function create(Request $request)
     {
-        // Pembentukan nomor antrian otomatis berdasarkan jumlah kunjungan hari ini
-        $today = Carbon::today();
-        $jumlahAntrianHariIni = Kunjungan::whereDate('tanggal_kunjungan', $today)->count();
-        $nextNo = $jumlahAntrianHariIni + 1;
-        $autoNoAntrian = 'A-' . str_pad($nextNo, 3, '0', STR_PAD_LEFT);
-
-        // Mengambil data pasien terdaftar
+        $autoNoAntrian = Kunjungan::generateNoAntrian();
         $pasiens = Pasien::orderBy('nama')->get();
         $selectedPasienId = $request->query('pasien_id');
 
@@ -65,24 +59,8 @@ class KunjunganController extends Controller
             'biaya_layanan' => 'required|numeric|min:0',
         ]);
 
-        // Simpan data kunjungan dengan status awal: antri_triage
-        $kunjungan = Kunjungan::create([
-            'pasien_id' => $validated['pasien_id'],
-            'no_antrian' => $validated['no_antrian'],
-            'tanggal_kunjungan' => Carbon::now(),
-            'status' => 'antri_triage',
-        ]);
+        Kunjungan::registrasiAntrian($validated);
 
-        // Buat data awal tagihan kasir (biaya administrasi / konsul)
-        Tagihan::create([
-            'kunjungan_id' => $kunjungan->id,
-            'biaya_layanan' => $validated['biaya_layanan'],
-            'biaya_obat' => 0,
-            'total_tagihan' => $validated['biaya_layanan'],
-            'status_bayar' => 'belum_lunas',
-        ]);
-
-        // Redirect langsung kembali ke halaman utama Kunjungan
         return redirect()->route('kunjungan.index')
             ->with('success', 'Registrasi antrian ' . $validated['no_antrian'] . ' berhasil ditambahkan!');
     }
@@ -107,7 +85,7 @@ class KunjunganController extends Controller
             'status' => 'required|in:antri_triage,antri_dokter,periksa,kasir,apotek,selesai,batal',
         ]);
 
-        $kunjungan->update($validated);
+        $kunjungan->perbaruiAntrian($validated);
 
         return redirect()->route('kunjungan.index')
             ->with('success', 'Data antrian kunjungan berhasil diperbarui!');

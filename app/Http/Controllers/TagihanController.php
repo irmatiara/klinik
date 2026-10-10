@@ -52,15 +52,7 @@ class TagihanController extends Controller
             'bayar' => 'required|numeric|min:' . $tagihan->total_tagihan,
         ]);
 
-        // Update status bayar tagihan
-        $tagihan->update([
-            'status_bayar' => 'lunas',
-        ]);
-
-        // Update status kunjungan ke 'apotek' (Menunggu Penyerahan Obat di Farmasi)
-        $tagihan->kunjungan->update([
-            'status' => 'apotek',
-        ]);
+        $tagihan->prosesPembayaranKasir($validated);
 
         return redirect()->route('tagihan.edit', $tagihan->id)
             ->with('success', 'Pembayaran berhasil dikonfirmasi (LUNAS)! Pasien diserahkan ke Apotek / Farmasi.');
